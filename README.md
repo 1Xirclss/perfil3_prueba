@@ -1,44 +1,63 @@
-# Evaluación práctica 15% — TV Explorer
+# Fake Store Explorer — Evaluación práctica 15%
 
-Aplicación móvil en React Native con Expo que presenta los datos del estudiante y consume la API pública de [TVMaze](https://api.tvmaze.com/shows).
+Aplicación React Native con Expo para mostrar los datos del estudiante y consultar el catálogo de Fake Store API. La organización sigue la rama `movil` de ProNatural y conserva únicamente los módulos que utiliza esta evaluación.
 
 ## Datos de entrega
 
-- **Nombre del estudiante:** Nombre del estudiante
+- **Estudiante:** Marco Mejía
 - **Carnet:** 20210318
-- **Sección y grupo:** Sección 1B y grupo 1
-- **Video demostrativo:** ( )
-- **Descarga del APK:** ()
-## Antes de entregar
+- **Sección y grupo:** B1 · Grupo 1
+- **Video demostrativo:** Pendiente de publicar
+- **Descarga del APK:** Pendiente de generar y publicar
 
-Edita `src/config/student.js` y la sección **Datos de entrega** de este README. Reemplaza el nombre, la sección, el grupo y los dos enlaces públicos. El carnet se tomó del nombre de esta carpeta (`20210318`).
+La guía pide un repositorio público con nombre `Perfil3_NombreApellido`; este repositorio todavía tiene el nombre `perfil3_prueba`. Antes de entregar, agrega los enlaces públicos del video y del APK.
 
-Crea un repositorio público llamado exactamente `Perfil3_NombreApellido`, tal como solicita la guía.
+## Funciones y criterios
+
+- Splash screen e iconos personalizados configurados en `app.json` y `assets/`.
+- Pantalla inicial con nombre, carnet, sección, grupo y navegación al catálogo.
+- Catálogo conectado a `https://fakestoreapi.com/products`, con título, imagen y descripción de cada producto.
+- `Card` reutilizable que recibe los datos del producto por props.
+- Hook `useProducts` con petición asíncrona, estados de carga y error, búsqueda y actualización.
+- Cliente HTTP aislado en `src/utils/apiClient.js` y URL configurada en `src/config/apiConfig.js`.
+- Navegación entre las dos pantallas mediante React Navigation.
+- Perfil EAS `preview` configurado para compilar un APK de Android.
 
 ## Ejecutar
 
 ```bash
-npm install
+npm ci
 npm start
 ```
 
-Luego escanea el código QR con Expo Go o presiona `a` para Android.
+Escanea el QR con Expo Go o abre un emulador Android y presiona `a`. La consulta de productos requiere internet.
 
-## Generar APK con EAS
+## Generar el APK
 
 ```bash
-npm install -g eas-cli
+npm install --global eas-cli
 eas login
-eas build:configure
 eas build --platform android --profile preview
 ```
 
-El perfil `preview` de `eas.json` genera un APK instalable. EAS mostrará el enlace de descarga al finalizar.
+El perfil `preview` produce un APK instalable. Publica el archivo y coloca el enlace en **Datos de entrega**.
+
+## Video demostrativo
+
+Graba la instalación y ejecución del APK en Android. Muestra el icono y splash, los datos del estudiante, la navegación, el catálogo con imágenes y descripciones, la búsqueda y el regreso a inicio. Publica el video con acceso público y agrega el enlace arriba.
 
 ## Estructura
 
-- `src/screens`: las dos pantallas requeridas.
-- `src/components/Card.js`: tarjeta reutilizable que recibe cada serie usando props .
-- `src/hooks/useShows.js`: lgica de consulta a TVMaze.
-- `src/navigation`: navegación Stack con React Navigation.
-- `assets`: icono, splash y adaptive icon personaliados.z
+```text
+App.js
+index.js
+assets/                  Icono, splash e icono adaptativo
+src/
+  components/            Card, botón, filas de información y carga
+  config/                Datos del alumno, URL de API y colores
+  hooks/useProducts.js   Consumo y filtrado de productos
+  navigation/            Stack de React Navigation
+  screens/               Inicio y catálogo
+  styles/                Estilos globales
+  utils/apiClient.js      Peticiones HTTP
+```

@@ -1,39 +1,113 @@
-import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
-import colors from '../config/colors';
+import React from "react";
+import { Image, StyleSheet, Text, View } from "react-native";
+import colors from "../config/colors";
 
-export default function Card({ show }) {
-  const image = show.image?.medium;
+// Tarjeta reutilizable para mostrar los productos recibidos por props.
+const Card = ({ product }) => {
+  const imageUrl = product.image;
+
   return (
     <View style={styles.card}>
-      {image ? (
-        <Image source={{ uri: image }} style={styles.poster} resizeMode="cover" />
+      {imageUrl ? (
+        <Image source={{ uri: imageUrl }} style={styles.image} resizeMode="contain" />
       ) : (
-        <View style={[styles.poster, styles.placeholder]}><Text style={styles.placeholderText}>TV</Text></View>
+        <View style={[styles.image, styles.imagePlaceholder]}>
+          <Text style={styles.placeholderText}>Sin imagen</Text>
+        </View>
       )}
       <View style={styles.content}>
-        <Text style={styles.title} numberOfLines={2}>{show.name}</Text>
-        <Text style={styles.meta}>{show.language || 'Sin idioma'} · {show.premiered?.slice(0, 4) || 'Sin año'}</Text>
-        <View style={styles.genreRow}>
-          {(show.genres || []).slice(0, 2).map((genre) => <Text key={genre} style={styles.genre}>{genre}</Text>)}
+        <View style={styles.headerRow}>
+          <Text style={styles.title} numberOfLines={2}>{product.title}</Text>
+          <View style={styles.badge}>
+            <Text style={styles.badgeText}>{product.category}</Text>
+          </View>
         </View>
-        <Text style={styles.summary} numberOfLines={4}>{show.summary}</Text>
-        <Text style={styles.rating}>★ {show.rating?.average ?? 'N/D'}</Text>
+        <Text style={styles.description} numberOfLines={4}>
+          {product.description || "Sin descripción disponible."}
+        </Text>
+        <View style={styles.footer}>
+          <Text style={styles.price}>${Number(product.price || 0).toFixed(2)}</Text>
+          <Text style={styles.rating}>
+            ★ {product.rating?.rate ?? "N/D"} ({product.rating?.count ?? 0})
+          </Text>
+        </View>
       </View>
     </View>
   );
-}
+};
+
+export default Card;
 
 const styles = StyleSheet.create({
-  card: { flexDirection: 'row', backgroundColor: colors.card, borderRadius: 16, marginBottom: 14, overflow: 'hidden', elevation: 2, shadowColor: '#2E1065', shadowOpacity: 0.08, shadowRadius: 7, shadowOffset: { width: 0, height: 3 } },
-  poster: { width: 112, minHeight: 172, backgroundColor: colors.border },
-  placeholder: { alignItems: 'center', justifyContent: 'center' },
-  placeholderText: { color: colors.textLight, fontSize: 25, fontWeight: '800' },
-  content: { flex: 1, padding: 13 },
-  title: { color: colors.text, fontSize: 18, fontWeight: '800', marginBottom: 4 },
-  meta: { color: colors.textLight, fontSize: 12, marginBottom: 7 },
-  genreRow: { flexDirection: 'row', flexWrap: 'wrap', marginBottom: 7 },
-  genre: { color: colors.primary, backgroundColor: '#EDE9FE', borderRadius: 10, paddingHorizontal: 8, paddingVertical: 3, marginRight: 5, fontSize: 10, fontWeight: '700' },
-  summary: { color: colors.textLight, fontSize: 12, lineHeight: 17, flex: 1 },
-  rating: { color: '#B45309', fontSize: 12, fontWeight: '800', marginTop: 6 },
+  card: {
+    backgroundColor: "#F3F1EB",
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: "rgba(16, 43, 30, 0.1)",
+    overflow: "hidden",
+    marginBottom: 12,
+  },
+  image: {
+    width: "100%",
+    height: 175,
+    backgroundColor: "#FFFFFF",
+  },
+  imagePlaceholder: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  placeholderText: {
+    color: "#66736B",
+    fontSize: 13,
+  },
+  content: {
+    padding: 14,
+  },
+  headerRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    marginBottom: 6,
+    gap: 8,
+  },
+  title: {
+    color: "#102B1E",
+    fontSize: 16,
+    fontWeight: "bold",
+    flex: 1,
+  },
+  badge: {
+    maxWidth: 105,
+    backgroundColor: "rgba(32, 139, 81, 0.12)",
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 8,
+  },
+  badgeText: {
+    color: "#0B2B1E",
+    fontSize: 10,
+    fontWeight: "bold",
+    textTransform: "capitalize",
+  },
+  description: {
+    color: "#66736B",
+    fontSize: 13,
+    lineHeight: 19,
+  },
+  footer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginTop: 10,
+  },
+  price: {
+    color: "#208B51",
+    fontSize: 17,
+    fontWeight: "bold",
+  },
+  rating: {
+    color: "#66736B",
+    fontSize: 12,
+    fontWeight: "600",
+  },
 });

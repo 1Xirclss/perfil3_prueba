@@ -1,6 +1,5 @@
-// Cambia únicamente estos datos antes de entregar la evaluación.
 export default {
-  nombre: 'Nombre del estudiante',
+  nombre: 'Marco Mejía',
   carnet: '20210318',
-  seccionGrupo: 'Sección y grupo',
+  seccionGrupo: 'Sección B1 · Grupo 1',
 };

@@ -1,28 +1,34 @@
 {
   "expo": {
-    "name": "TV Explorer",
-    "slug": "evaluacion-tvmaze-20210318",
+    "name": "Fake Store Explorer",
+    "slug": "evaluacion-fakestore-20210318",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash-icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#F3E8FF"
-    },
     "ios": {
       "supportsTablet": true
     },
     "android": {
-      "package": "com.estudiante.tvexplorer20210318",
+      "package": "com.estudiante.fakestore20210318",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#F3E8FF"
+        "backgroundColor": "#FAF9F6"
       }
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#FAF9F6",
+          "imageWidth": 200
+        }
+      ]
+    ]
   }
 }
